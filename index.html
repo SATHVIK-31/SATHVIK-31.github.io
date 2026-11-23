@@ -1,0 +1,2180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SATHVIK NAMA — Building Intelligent Systems</title>
+  <meta name="description" content="Personal engineering portfolio of Sathvik Nama — Electronics & Instrumentation Engineering undergraduate at SASTRA Deemed University exploring AI, Embedded Systems, and Firmware." />
+
+  <!-- Google Fonts: Space Grotesk (Display), Inter (Body), JetBrains Mono (Engineering Telemetry) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Three.js r128 CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Space Grotesk"', 'sans-serif'],
+            sans: ['Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            canvas: '#F8F8F7',
+            obsidian: '#09090B',
+            slateMuted: '#52525B',
+            crimson: '#E11D48',
+            hairline: '#D4D4D8',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* =========================================================================
+       SWISS BENTO DESIGN SYSTEM TOKENS & MICRO-DETAILS
+       ========================================================================= */
+    html {
+      scroll-behavior: smooth;
+      background-color: #F8F8F7;
+      color: #09090B;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      background-color: #F8F8F7;
+      background-image:
+        linear-gradient(to right, rgba(9, 9, 11, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(9, 9, 11, 0.04) 1px, transparent 1px);
+      background-size: 36px 36px;
+    }
+
+    /* Crisp Architectural Bento Card */
+    .bento-card {
+      background: #FFFFFF;
+      border: 1px solid #D4D4D8;
+      border-radius: 6px;
+      position: relative;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .bento-card:hover {
+      border-color: #18181B;
+    }
+
+    /* Subtle Coordinate Corner Ticks on Key Architectural Panels */
+    .coord-ticks::before,
+    .coord-ticks::after {
+      content: '';
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      pointer-events: none;
+    }
+    .coord-ticks::before {
+      top: -1px;
+      left: -1px;
+      border-top: 1.5px solid #09090B;
+      border-left: 1.5px solid #09090B;
+    }
+    .coord-ticks::after {
+      bottom: -1px;
+      right: -1px;
+      border-bottom: 1.5px solid #09090B;
+      border-right: 1.5px solid #09090B;
+    }
+
+    /* Active Project Card & Skill Cross-Highlight States */
+    .project-card-active {
+      border-color: #09090B !important;
+      box-shadow: 3px 3px 0px #09090B;
+    }
+
+    .project-card-skill-match {
+      border-color: #E11D48 !important;
+      box-shadow: 0 0 0 1px #E11D48, 4px 4px 0px #E11D48 !important;
+    }
+
+    /* Custom Precision Engineering Range Slider */
+    input[type="range"].swiss-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 4px;
+      background: #D4D4D8;
+      border-radius: 2px;
+      outline: none;
+    }
+    input[type="range"].swiss-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 15px;
+      height: 15px;
+      border-radius: 3px;
+      background: #E11D48;
+      border: 1.5px solid #09090B;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    input[type="range"].swiss-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.12);
+    }
+
+    /* Toggle Switch Styling for Signal Lab */
+    .lab-toggle {
+      position: relative;
+      width: 40px;
+      height: 22px;
+      border-radius: 4px;
+      background: #E4E4E7;
+      border: 1px solid #A1A1AA;
+      transition: background 0.2s ease, border-color 0.2s ease;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .lab-toggle::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 16px;
+      height: 16px;
+      border-radius: 2px;
+      background: #09090B;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+    .lab-toggle.active {
+      background: #E11D48;
+      border-color: #E11D48;
+    }
+    .lab-toggle.active::after {
+      transform: translateX(18px);
+      background: #FFFFFF;
+    }
+
+    /* Subtle Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F8F8F7;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #A1A1AA;
+      border-radius: 3px;
+    }
+
+    /* Clean Single-Page Resume Print Styles */
+    @media print {
+      body {
+        background: #FFFFFF !important;
+        background-image: none !important;
+      }
+      body > *:not(#resume-modal) {
+        display: none !important;
+      }
+      #resume-modal {
+        position: static !important;
+        display: block !important;
+        background: #FFFFFF !important;
+        padding: 0 !important;
+      }
+      #resume-sheet {
+        max-height: none !important;
+        overflow: visible !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="text-obsidian selection:bg-crimson selection:text-white">
+
+  <!-- =========================================================================
+       STICKY MINIMAL NAVIGATION BAR
+       ========================================================================= -->
+  <header class="sticky top-0 z-40 bg-canvas/92 backdrop-blur-md border-b border-hairline">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-4">
+      <!-- Left: Brand Identity -->
+      <a href="#top" class="flex items-center gap-2 font-mono text-xs sm:text-[13px] font-bold tracking-[0.12em] text-obsidian hover:text-crimson transition-colors">
+        <span class="w-2 h-2 rounded-sm bg-crimson"></span>
+        <span>SATHVIK NAMA <span class="text-zinc-400 font-normal">// 2028</span></span>
+      </a>
+
+      <!-- Center: Minimal Nav Links -->
+      <nav class="hidden md:flex items-center gap-6 font-mono text-[11px] font-medium tracking-[0.14em] text-slateMuted">
+        <a href="#about" class="hover:text-obsidian transition-colors">ABOUT</a>
+        <a href="#projects" class="hover:text-obsidian transition-colors">PROJECTS</a>
+        <a href="#lab" class="hover:text-obsidian transition-colors">LAB</a>
+        <a href="#skills" class="hover:text-obsidian transition-colors">SKILLS</a>
+        <a href="#education" class="hover:text-obsidian transition-colors">EDUCATION</a>
+        <a href="#contact" class="hover:text-obsidian transition-colors">CONTACT</a>
+      </nav>
+
+      <!-- Right: Command Palette + Resume PDF -->
+      <div class="flex items-center gap-2">
+        <button
+          id="nav-cmd-btn"
+          class="flex items-center gap-1.5 bg-white hover:border-obsidian border border-hairline px-2.5 py-1.5 rounded-[4px] font-mono text-[11px] text-slateMuted hover:text-obsidian transition-colors"
+          title="Open Command Palette (Ctrl+K or ⌘K)"
+        >
+          <span class="hidden sm:inline">Search</span>
+          <kbd class="px-1.5 py-0.5 text-[10px] bg-zinc-100 border border-zinc-300 rounded-[3px] font-semibold text-obsidian">⌘K</kbd>
+        </button>
+        <button
+          data-open-resume
+          class="bg-obsidian hover:bg-crimson text-white font-mono text-[11px] font-semibold tracking-[0.1em] uppercase px-3.5 py-1.5 rounded-[4px] transition-colors"
+        >
+          Resume PDF
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       MAIN SWISS BENTO CONTAINER
+       ========================================================================= -->
+  <main id="top" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-8">
+
+    <!-- =======================================================================
+         HERO SECTION — SWISS BENTO + MAREA LIQUID-SIGNAL X-RAY PORTRAIT
+         ======================================================================= -->
+    <section class="space-y-4">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
+
+        <!-- Left Column: Editorial Swiss Typography Card (7 cols) -->
+        <div class="lg:col-span-7 bento-card coord-ticks p-6 sm:p-8 lg:p-10 flex flex-col justify-between gap-8">
+          <div class="space-y-5">
+            <!-- Eyebrow Badge -->
+            <div class="flex items-center justify-between gap-2">
+              <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-[4px] bg-zinc-100 border border-zinc-200 font-mono text-[10px] font-semibold tracking-[0.16em] text-obsidian uppercase">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-crimson opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-crimson"></span>
+                </span>
+                <span>PORTFOLIO // REV 2026.11</span>
+              </div>
+              <span class="hidden sm:inline font-mono text-[10px] tracking-[0.16em] text-zinc-400">SYS.ARCH // EIE</span>
+            </div>
+
+            <!-- Name & Headline -->
+            <div class="space-y-2">
+              <p class="font-mono text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-crimson">
+                SATHVIK NAMA
+              </p>
+              <h1 class="font-display font-bold text-4xl sm:text-6xl xl:text-[4.25rem] leading-[0.94] tracking-tight uppercase text-obsidian">
+                BUILDING INTELLIGENT SYSTEMS.
+              </h1>
+            </div>
+
+            <!-- Supporting Copy -->
+            <div class="space-y-2.5 max-w-xl">
+              <p class="text-sm sm:text-base text-slateMuted leading-relaxed">
+                Electronics &amp; Instrumentation Engineering student exploring Artificial Intelligence, Embedded Systems, and Firmware Engineering.
+              </p>
+              <p class="font-mono text-xs sm:text-[13px] text-obsidian/80 border-l-2 border-crimson pl-3 py-0.5">
+                Bridging intelligent software with real-world hardware.
+              </p>
+            </div>
+          </div>
+
+          <!-- Hero CTAs -->
+          <div class="flex flex-wrap items-center gap-3 pt-2">
+            <a
+              href="#projects"
+              class="bg-obsidian hover:bg-crimson text-white font-mono text-xs font-semibold tracking-[0.12em] uppercase px-5 py-3 rounded-[4px] transition-colors inline-flex items-center gap-2"
+            >
+              <span>Explore Projects</span>
+              <span>↓</span>
+            </a>
+            <button
+              data-open-resume
+              class="bg-white hover:bg-zinc-100 text-obsidian border border-obsidian font-mono text-xs font-semibold tracking-[0.12em] uppercase px-5 py-3 rounded-[4px] transition-colors"
+            >
+              Download Resume
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Column: Signature Marea Liquid-Signal X-Ray Portrait Card (5 cols) -->
+        <div class="lg:col-span-5 bento-card coord-ticks p-3.5 sm:p-4 flex flex-col justify-between gap-3">
+          <!-- Top Control Bar: Optical Mode Switcher Pill -->
+          <div class="flex items-center justify-between gap-2">
+            <div class="flex items-center gap-1.5 font-mono text-[10px] font-semibold tracking-[0.14em] text-slateMuted uppercase">
+              <span class="w-1.5 h-1.5 rounded-full bg-crimson"></span>
+              <span id="optical-mode-label">MAREA X-RAY LENS</span>
+            </div>
+            <div class="inline-flex bg-zinc-100 border border-zinc-200 rounded-[4px] p-0.5 font-mono text-[10px]">
+              <button data-optical="xray" class="optical-btn px-2 py-1 rounded-[3px] bg-obsidian text-white font-bold transition-colors">X-RAY</button>
+              <button data-optical="blueprint" class="optical-btn px-2 py-1 rounded-[3px] text-slateMuted hover:text-obsidian transition-colors">BLUEPRINT</button>
+              <button data-optical="studio" class="optical-btn px-2 py-1 rounded-[3px] text-slateMuted hover:text-obsidian transition-colors">STUDIO</button>
+            </div>
+          </div>
+
+          <!-- Portrait Interactive Container -->
+          <div
+            id="portrait-stage"
+            class="relative w-full aspect-[4/4.35] rounded-[4px] overflow-hidden border border-zinc-300 bg-zinc-100 cursor-crosshair select-none touch-none"
+          >
+            <!-- High-Contrast Monochrome Portrait -->
+            <img
+              id="hero-portrait-img"
+              src="portrait_2.jpeg"
+              alt="Sathvik Nama"
+              class="w-full h-full object-cover object-top grayscale contrast-115 block"
+              onerror="this.onerror=null; this.src='https://placehold.co/600x660/e4e4e7/18181b?text=SATHVIK+NAMA';"
+            />
+
+            <!-- Real-Time Marea Liquid-Signal X-Ray / Blueprint Canvas Overlay -->
+            <canvas id="portrait-fx-canvas" class="absolute inset-0 w-full h-full pointer-events-none"></canvas>
+
+            <!-- Bottom-Left Live Hint -->
+            <div class="absolute bottom-2.5 left-2.5 pointer-events-none">
+              <span id="portrait-hint-pill" class="inline-flex items-center gap-1.5 bg-obsidian/80 backdrop-blur-sm text-white font-mono text-[9px] tracking-[0.12em] uppercase px-2 py-1 rounded-[3px] border border-white/15">
+                MOVE OVER PORTRAIT · POUR X-RAY
+              </span>
+            </div>
+
+            <!-- Bottom-Right Subtle Swap Photo Button -->
+            <label class="cursor-pointer absolute bottom-2.5 right-2.5 bg-white/90 hover:bg-obsidian hover:text-white text-obsidian border border-zinc-300 font-mono text-[9px] font-semibold tracking-wider uppercase px-2.5 py-1 rounded-[3px] shadow-sm transition-colors">
+              Swap Photo
+              <input id="portrait-file-input" type="file" accept="image/*" class="hidden" />
+            </label>
+          </div>
+
+          <!-- Portrait Telemetry Footer -->
+          <div class="flex items-center justify-between font-mono text-[10px] text-slateMuted px-0.5">
+            <span id="portrait-status-text">LAYER: STM32F103C8T6 + 7–31 HZ EEG</span>
+            <span id="portrait-coords">X:050 Y:050</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Hero Metadata Bar (4-Column Swiss Bento Strip) -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="bento-card px-4 py-3.5">
+          <div class="font-mono text-[10px] tracking-[0.16em] text-slateMuted uppercase">BASED IN</div>
+          <div class="font-mono text-xs sm:text-sm font-bold text-obsidian mt-1">THANJAVUR, INDIA</div>
+        </div>
+        <div class="bento-card px-4 py-3.5">
+          <div class="font-mono text-[10px] tracking-[0.16em] text-slateMuted uppercase">FOCUS</div>
+          <div class="font-mono text-xs sm:text-sm font-bold text-obsidian mt-1">AI × EMBEDDED</div>
+        </div>
+        <div class="bento-card px-4 py-3.5">
+          <div class="font-mono text-[10px] tracking-[0.16em] text-slateMuted uppercase">EDUCATION</div>
+          <div class="font-mono text-xs sm:text-sm font-bold text-obsidian mt-1">SASTRA</div>
+        </div>
+        <div class="bento-card px-4 py-3.5">
+          <div class="font-mono text-[10px] tracking-[0.16em] text-slateMuted uppercase">GRADUATING</div>
+          <div class="font-mono text-xs sm:text-sm font-bold text-obsidian mt-1">2028</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 01 — ABOUT
+         ======================================================================= -->
+    <section id="about" class="scroll-mt-20 grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
+      <!-- Left Sticky Header + Live Architectural Mini-Diagram -->
+      <div class="lg:col-span-4 lg:sticky lg:top-20 bento-card p-6 space-y-5">
+        <div>
+          <span class="font-mono text-[11px] font-bold tracking-[0.18em] text-crimson uppercase">01 / ABOUT</span>
+          <h2 class="font-display font-bold text-2xl sm:text-3xl tracking-tight text-obsidian mt-1">
+            SYSTEMS MINDSET
+          </h2>
+        </div>
+
+        <!-- Architectural Mini-Diagram: Software Intelligence <-> Hardware Engineering -->
+        <div class="p-4 rounded-[4px] bg-canvas border border-hairline space-y-3">
+          <div class="font-mono text-[9px] tracking-[0.16em] uppercase text-slateMuted">DOMAIN BRIDGE DIAGRAM</div>
+          <div class="flex items-center justify-between gap-2 font-mono text-[10px] font-bold">
+            <div class="flex-1 bg-white border border-obsidian rounded-[4px] p-2.5 text-center">
+              <div class="text-crimson text-[9px] mb-0.5">LAYER 01</div>
+              SOFTWARE INTELLIGENCE
+            </div>
+            <div class="flex flex-col items-center text-crimson font-bold px-1">
+              <span>⇄</span>
+              <span class="text-[8px] text-slateMuted">BUS</span>
+            </div>
+            <div class="flex-1 bg-white border border-obsidian rounded-[4px] p-2.5 text-center">
+              <div class="text-crimson text-[9px] mb-0.5">LAYER 02</div>
+              HARDWARE ENGINEERING
+            </div>
+          </div>
+          <div class="flex items-center justify-between font-mono text-[9px] text-slateMuted pt-1 border-t border-zinc-200">
+            <span>ML / LLMs / SHAP</span>
+            <span>STM32 / PCB / DSP</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: All 5 Paragraphs Verbatim -->
+      <div class="lg:col-span-8 bento-card p-6 sm:p-8 space-y-4 text-sm sm:text-[15px] leading-relaxed text-zinc-700">
+        <p>
+          I'm an Electronics and Instrumentation Engineering undergraduate at SASTRA Deemed University with a strong interest in Artificial Intelligence, embedded systems, and intelligent engineering solutions.
+        </p>
+        <p>
+          My interests span machine learning, generative AI, AI agents, electronics design, microcontroller programming, firmware development, and signal processing.
+        </p>
+        <p>
+          I enjoy exploring how software intelligence and hardware engineering can come together to solve practical problems. Through research experimentation, academic projects, and independent learning, I'm developing skills across AI/ML workflows, signal processing, embedded development, and circuit design.
+        </p>
+        <p>
+          I'm particularly interested in building systems that are not just theoretically interesting, but practical, efficient, and useful in real-world applications.
+        </p>
+        <p class="font-medium text-obsidian">
+          Currently focused on becoming a versatile engineer capable of working across AI-driven software and hardware systems.
+        </p>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 02 — INTERACTIVE 3D CAD VIEWPORT & PROJECTS (APPLE-STYLE SYNC)
+         ======================================================================= -->
+    <section id="projects" class="scroll-mt-20 space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+        <div>
+          <span class="font-mono text-[11px] font-bold tracking-[0.18em] text-crimson uppercase">02 / PROJECTS</span>
+          <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-obsidian mt-0.5">
+            ENGINEERING SYSTEMS
+          </h2>
+        </div>
+        <p class="font-mono text-[11px] text-slateMuted">
+          Scroll cards or select <span class="text-obsidian font-semibold">01–04</span> to morph the 3D CAD viewport.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        <!-- Left Sticky 3D CAD Wireframe Viewport (5 cols) -->
+        <div class="lg:col-span-5 lg:sticky lg:top-20 bento-card coord-ticks p-4 space-y-3">
+          <!-- Top Header + Camera Snap Controls -->
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <span class="font-mono text-[9px] font-bold tracking-[0.16em] uppercase text-crimson">3D CAD VIEWPORT</span>
+              <div id="cad-scene-title" class="font-mono text-xs font-bold text-obsidian">01 · EEG NEURO-STATE</div>
+            </div>
+            <div class="inline-flex bg-zinc-100 border border-zinc-200 rounded-[4px] p-0.5 font-mono text-[10px]">
+              <button data-cam="iso" class="cam-snap-btn px-2 py-1 rounded-[3px] bg-obsidian text-white font-bold">ISO</button>
+              <button data-cam="top" class="cam-snap-btn px-2 py-1 rounded-[3px] text-slateMuted hover:text-obsidian">TOP</button>
+              <button data-cam="side" class="cam-snap-btn px-2 py-1 rounded-[3px] text-slateMuted hover:text-obsidian">SIDE</button>
+              <button data-cam="reset" class="cam-snap-btn px-2 py-1 rounded-[3px] text-slateMuted hover:text-obsidian">RESET</button>
+            </div>
+          </div>
+
+          <!-- Three.js Canvas Container -->
+          <div
+            id="cad-viewport-container"
+            class="relative w-full h-72 sm:h-80 lg:h-[360px] rounded-[4px] bg-canvas border border-zinc-200 overflow-hidden cursor-grab active:cursor-grabbing touch-none"
+          >
+            <canvas id="cad-3d-canvas" class="w-full h-full block"></canvas>
+
+            <!-- Viewport Corner Overlay -->
+            <div class="absolute top-2.5 left-2.5 pointer-events-none font-mono text-[9px] tracking-widest uppercase text-slateMuted bg-white/85 px-2 py-0.5 rounded-[3px] border border-zinc-200">
+              WIREFRAME // THREE.JS
+            </div>
+            <div class="absolute bottom-2.5 left-2.5 pointer-events-none font-mono text-[9px] text-slateMuted bg-white/85 px-2 py-0.5 rounded-[3px] border border-zinc-200">
+              DRAG TO ORBIT
+            </div>
+          </div>
+
+          <!-- Project Selector Tabs (01–04) -->
+          <div class="grid grid-cols-4 gap-1.5 font-mono text-[11px]">
+            <button data-select-scene="0" class="scene-tab-btn py-1.5 rounded-[4px] bg-obsidian text-white font-bold border border-obsidian transition-colors">01</button>
+            <button data-select-scene="1" class="scene-tab-btn py-1.5 rounded-[4px] bg-white text-slateMuted border border-hairline hover:border-obsidian hover:text-obsidian transition-colors">02</button>
+            <button data-select-scene="2" class="scene-tab-btn py-1.5 rounded-[4px] bg-white text-slateMuted border border-hairline hover:border-obsidian hover:text-obsidian transition-colors">03</button>
+            <button data-select-scene="3" class="scene-tab-btn py-1.5 rounded-[4px] bg-white text-slateMuted border border-hairline hover:border-obsidian hover:text-obsidian transition-colors">04</button>
+          </div>
+
+          <!-- Live Telemetry Footer -->
+          <div class="flex items-center justify-between pt-2 border-t border-zinc-200 font-mono text-[10px] text-slateMuted">
+            <span id="cad-telemetry-sub">7–31 HZ WAVEFORMS + SHAP</span>
+            <span id="cad-telemetry-rot">ROT [0.35, 0.55]</span>
+          </div>
+        </div>
+
+        <!-- Right Scrollable Project Cards (7 cols) -->
+        <div id="projects-list" class="lg:col-span-7 space-y-5">
+          <!-- Populated dynamically with exact verified content -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 03 — INTERACTIVE SIGNAL & FIRMWARE LAB (BENTO WORKBENCH)
+         ======================================================================= -->
+    <section id="lab" class="scroll-mt-20 space-y-4">
+      <div class="bento-card coord-ticks p-5 sm:p-7 space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-zinc-200">
+          <div>
+            <span class="font-mono text-[11px] font-bold tracking-[0.18em] text-crimson uppercase">03 / INTERACTIVE WORKBENCH</span>
+            <h2 class="font-display font-bold text-2xl sm:text-3xl tracking-tight text-obsidian mt-0.5">
+              SIGNAL &amp; FIRMWARE LAB
+            </h2>
+          </div>
+
+          <!-- Workbench Tab Switcher -->
+          <div class="inline-flex bg-zinc-100 border border-zinc-200 rounded-[4px] p-1 font-mono text-[11px] self-start sm:self-auto">
+            <button id="tab-btn-eeg" class="px-3.5 py-1.5 rounded-[3px] bg-obsidian text-white font-bold transition-colors">
+              A · EEG &amp; SHAP
+            </button>
+            <button id="tab-btn-pwm" class="px-3.5 py-1.5 rounded-[3px] text-slateMuted hover:text-obsidian transition-colors">
+              B · STM32 BUCK PWM
+            </button>
+          </div>
+        </div>
+
+        <!-- TAB A: EEG Signal & SHAP Explorer -->
+        <div id="lab-panel-eeg" class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+          <div class="lg:col-span-8 space-y-4">
+            <div class="relative w-full h-48 sm:h-56 rounded-[4px] bg-obsidian border border-zinc-800 overflow-hidden">
+              <canvas id="eeg-scope-canvas" class="w-full h-full block"></canvas>
+              <div class="absolute top-2.5 left-3 flex items-center gap-2 font-mono text-[10px] text-zinc-200 bg-black/60 px-2.5 py-1 rounded-[3px] border border-white/10">
+                <span id="eeg-scope-dot" class="w-2 h-2 rounded-full bg-amber-400"></span>
+                <span id="eeg-scope-label">RAW EEG + 50 HZ HUM + BASELINE DRIFT</span>
+              </div>
+              <div class="absolute bottom-2.5 right-3 font-mono text-[9px] text-zinc-400">
+                FS: 256 HZ // CH: C3-C4
+              </div>
+            </div>
+
+            <!-- Interactive Filter Toggle Controls -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div class="flex items-center justify-between gap-3 p-3 rounded-[4px] bg-canvas border border-hairline">
+                <div>
+                  <div class="font-mono text-xs font-bold text-obsidian">50 Hz Notch Filter</div>
+                  <div class="font-mono text-[10px] text-slateMuted">Suppresses AC powerline hum</div>
+                </div>
+                <button id="toggle-notch" class="lab-toggle" aria-label="Toggle 50 Hz Notch Filter"></button>
+              </div>
+              <div class="flex items-center justify-between gap-3 p-3 rounded-[4px] bg-canvas border border-hairline">
+                <div>
+                  <div class="font-mono text-xs font-bold text-obsidian">7–31 Hz Butterworth</div>
+                  <div class="font-mono text-[10px] text-slateMuted">Isolates alpha &amp; beta bands</div>
+                </div>
+                <button id="toggle-bandpass" class="lab-toggle" aria-label="Toggle 7 to 31 Hz Butterworth Bandpass"></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SHAP Feature-Importance Readout -->
+          <div class="lg:col-span-4 p-4 rounded-[4px] bg-canvas border border-hairline space-y-3">
+            <div class="flex items-center justify-between border-b border-zinc-200 pb-2">
+              <span class="font-mono text-[10px] font-bold tracking-[0.14em] uppercase text-obsidian">SHAP ATTRIBUTION</span>
+              <span class="font-mono text-[10px] text-crimson font-bold">XGBOOST</span>
+            </div>
+            <div class="space-y-2.5 font-mono text-[11px]">
+              <div>
+                <div class="flex justify-between mb-1"><span>Beta Band Power (13–30 Hz)</span><span class="font-bold text-crimson">+0.41</span></div>
+                <div class="w-full h-1.5 bg-zinc-200 rounded-sm overflow-hidden"><div class="h-full bg-crimson" style="width: 84%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1"><span>Alpha/Beta Power Ratio</span><span class="font-bold text-obsidian">+0.32</span></div>
+                <div class="w-full h-1.5 bg-zinc-200 rounded-sm overflow-hidden"><div class="h-full bg-obsidian" style="width: 66%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1"><span>Spectral Entropy</span><span class="font-bold text-obsidian">+0.23</span></div>
+                <div class="w-full h-1.5 bg-zinc-200 rounded-sm overflow-hidden"><div class="h-full bg-zinc-600" style="width: 48%"></div></div>
+              </div>
+              <div>
+                <div class="flex justify-between mb-1"><span>Hjorth Mobility</span><span class="text-slateMuted">+0.16</span></div>
+                <div class="w-full h-1.5 bg-zinc-200 rounded-sm overflow-hidden"><div class="h-full bg-zinc-400" style="width: 34%"></div></div>
+              </div>
+            </div>
+            <div class="pt-2 border-t border-zinc-200 font-mono text-[10px] text-slateMuted">
+              Verified Holdout: <strong class="text-obsidian">93.40%</strong> (106 samples, experimental research).
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB B: STM32 Synchronous Buck PWM Simulator -->
+        <div id="lab-panel-pwm" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+          <div class="lg:col-span-7 space-y-2">
+            <div class="relative w-full h-48 sm:h-56 rounded-[4px] bg-obsidian border border-zinc-800 overflow-hidden">
+              <canvas id="pwm-scope-canvas" class="w-full h-full block"></canvas>
+              <div class="absolute top-2.5 left-3 font-mono text-[10px] text-zinc-200 bg-black/60 px-2.5 py-1 rounded-[3px] border border-white/10">
+                STM32F103 TIM1 // V_IN = 12.0V · f_sw = 50 kHz
+              </div>
+              <div class="absolute bottom-2.5 left-3 flex items-center gap-3 font-mono text-[9px] bg-black/65 px-2.5 py-1 rounded-[3px]">
+                <span class="text-rose-400">■ HIGH-SIDE PWM</span>
+                <span class="text-zinc-400">■ COMPLEMENTARY</span>
+                <span class="text-cyan-400">■ INDUCTOR I_L</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 p-4 rounded-[4px] bg-canvas border border-hairline space-y-4">
+            <div>
+              <div class="flex items-center justify-between font-mono text-xs mb-2">
+                <span class="font-bold text-obsidian">PWM DUTY CYCLE (D)</span>
+                <span id="pwm-duty-readout" class="font-bold text-crimson">41.7%</span>
+              </div>
+              <input id="pwm-duty-slider" type="range" min="10" max="90" step="0.1" value="41.7" class="swiss-slider" />
+              <div class="flex justify-between font-mono text-[9px] text-slateMuted mt-1">
+                <span>10%</span>
+                <button id="pwm-preset-5v" class="text-obsidian hover:text-crimson underline">Snap 5.00V (41.7%)</button>
+                <span>90%</span>
+              </div>
+            </div>
+
+            <!-- Calculated Hardware Telemetry Readouts -->
+            <div class="grid grid-cols-2 gap-2.5 font-mono">
+              <div class="bg-white border border-hairline rounded-[4px] p-2.5">
+                <div class="text-[9px] text-slateMuted uppercase">EST. V_OUT</div>
+                <div id="pwm-vout-val" class="text-base font-bold text-crimson mt-0.5">5.00 V</div>
+              </div>
+              <div class="bg-white border border-hairline rounded-[4px] p-2.5">
+                <div class="text-[9px] text-slateMuted uppercase">SWITCHING FREQ</div>
+                <div class="text-base font-bold text-obsidian mt-0.5">50 kHz</div>
+              </div>
+              <div class="bg-white border border-hairline rounded-[4px] p-2.5">
+                <div class="text-[9px] text-slateMuted uppercase">INDUCTOR ΔI_L</div>
+                <div id="pwm-ripple-val" class="text-sm font-bold text-obsidian mt-0.5">0.29 A</div>
+              </div>
+              <div class="bg-white border border-hairline rounded-[4px] p-2.5">
+                <div class="text-[9px] text-slateMuted uppercase">LM358 SENSE V</div>
+                <div id="pwm-lm358-val" class="text-sm font-bold text-obsidian mt-0.5">1.00 V</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 04 — CROSS-LINKED SKILLS MATRIX & CURRENT FOCUS
+         ======================================================================= -->
+    <section id="skills" class="scroll-mt-20 space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+        <div>
+          <span class="font-mono text-[11px] font-bold tracking-[0.18em] text-crimson uppercase">04 / SKILLS &amp; FOCUS</span>
+          <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight text-obsidian mt-0.5">
+            CAPABILITIES MATRIX
+          </h2>
+        </div>
+        <div id="skill-active-indicator" class="font-mono text-[11px] px-3 py-1 rounded-[4px] bg-white border border-hairline text-slateMuted">
+          Hover or click a skill to inspect linked projects.
+        </div>
+      </div>
+
+      <!-- 4-Card Skills Bento Grid (ZERO fake percentage bars) -->
+      <div id="skills-matrix-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Populated dynamically -->
+      </div>
+
+      <!-- Current Focus 3-Column Swiss Strip -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bento-card p-5 space-y-1.5">
+          <div class="font-mono text-[10px] font-bold tracking-[0.16em] text-crimson uppercase">CURRENT FOCUS // 01</div>
+          <h3 class="font-display font-bold text-base text-obsidian">AI ENGINEERING</h3>
+          <p class="text-xs sm:text-[13px] text-slateMuted leading-relaxed">
+            LLM applications, RAG, context engineering, AI agent workflows, multi-agent systems.
+          </p>
+        </div>
+        <div class="bento-card p-5 space-y-1.5">
+          <div class="font-mono text-[10px] font-bold tracking-[0.16em] text-crimson uppercase">CURRENT FOCUS // 02</div>
+          <h3 class="font-display font-bold text-base text-obsidian">FIRMWARE &amp; EMBEDDED</h3>
+          <p class="text-xs sm:text-[13px] text-slateMuted leading-relaxed">
+            C programming, microcontroller interfacing, peripherals, communication protocols, firmware fundamentals.
+          </p>
+        </div>
+        <div class="bento-card p-5 space-y-1.5">
+          <div class="font-mono text-[10px] font-bold tracking-[0.16em] text-crimson uppercase">CURRENT FOCUS // 03</div>
+          <h3 class="font-display font-bold text-base text-obsidian">INTELLIGENT HARDWARE</h3>
+          <p class="text-xs sm:text-[13px] text-slateMuted leading-relaxed">
+            Exploring the connection between signal processing, electronics, microcontrollers, and AI.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 05 — EDUCATION & VERIFIED HIGHLIGHTS
+         ======================================================================= -->
+    <section id="education" class="scroll-mt-20 grid grid-cols-1 lg:grid-cols-12 gap-4">
+      <!-- Main Education Bento Card (6 cols) -->
+      <div class="lg:col-span-6 bento-card coord-ticks p-6 sm:p-7 flex flex-col justify-between gap-4">
+        <div class="space-y-2.5">
+          <span class="font-mono text-[11px] font-bold tracking-[0.18em] text-crimson uppercase">05 / EDUCATION</span>
+          <h2 class="font-display font-bold text-2xl text-obsidian">SASTRA DEEMED UNIVERSITY</h2>
+          <p class="text-sm sm:text-base font-medium text-obsidian">
+            Bachelor of Technology — Electronics &amp; Instrumentation Engineering
+          </p>
+          <p class="font-mono text-xs text-slateMuted">
+            Thanjavur, Tamil Nadu, India · 2024–2028
+          </p>
+        </div>
+        <div class="pt-4 border-t border-zinc-200 text-xs sm:text-[13px] text-slateMuted leading-relaxed">
+          <strong class="font-mono text-[11px] uppercase tracking-wider text-obsidian block mb-1">INTERESTS</strong>
+          Microprocessors and Microcontrollers, Electronics and Instrumentation, Embedded Systems, Firmware, AI.
+        </div>
+      </div>
+
+      <!-- Companion Verified Highlights Bento Card (6 cols) -->
+      <div class="lg:col-span-6 bento-card p-6 sm:p-7 space-y-4">
+        <span class="font-mono text-[11px] font-bold tracking-[0.18em] text-crimson uppercase">VERIFIED HIGHLIGHTS</span>
+
+        <div class="space-y-3.5 text-xs sm:text-[13px]">
+          <div class="p-3.5 rounded-[4px] bg-canvas border border-hairline space-y-1">
+            <div class="flex items-center justify-between gap-2 font-mono text-[10px]">
+              <span class="font-bold text-obsidian uppercase">ICRM 2026 · ACCEPTED CO-AUTHOR</span>
+              <span class="text-crimson font-semibold">RESEARCH</span>
+            </div>
+            <p class="text-obsidian font-medium">
+              "Cortical Dynamics of Motor and Tactile Tasks Revealed Through EEG Classification and SHAP Interpretability"
+            </p>
+            <p class="font-mono text-[11px] text-slateMuted">Advisor / Collaborator: Prof. K. Adalarasu</p>
+          </div>
+
+          <div class="p-3.5 rounded-[4px] bg-canvas border border-hairline space-y-1">
+            <div class="flex items-center justify-between gap-2 font-mono text-[10px]">
+              <span class="font-bold text-obsidian uppercase">WINNER — GENESIS IDEATHON (2025)</span>
+              <span class="text-crimson font-semibold">1ST PLACE</span>
+            </div>
+            <p class="text-slateMuted">
+              1st place among 30+ teams, Byte Club, SASTRA University — IoT Women Safety Wearable with Emergency Alert System.
+            </p>
+          </div>
+
+          <div class="p-3.5 rounded-[4px] bg-canvas border border-hairline space-y-1">
+            <div class="flex items-center justify-between gap-2 font-mono text-[10px]">
+              <span class="font-bold text-obsidian uppercase">ACTIVE CORE MEMBER — BYTE CLUB (2024–PRESENT)</span>
+              <span class="text-slateMuted">LEADERSHIP</span>
+            </div>
+            <p class="text-slateMuted">
+              Co-organizing hackathons, ideathons, and embedded hardware workshops at SASTRA Deemed University.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SECTION 06 — CONTACT FOOTER
+         ======================================================================= -->
+    <footer id="contact" class="scroll-mt-20 space-y-4 pt-2 pb-10">
+      <div class="bento-card coord-ticks p-6 sm:p-9 space-y-6">
+        <div class="max-w-2xl space-y-2">
+          <span class="font-mono text-[11px] font-bold tracking-[0.18em] text-crimson uppercase">06 / CONTACT</span>
+          <h2 class="font-display font-bold text-3xl sm:text-5xl tracking-tight text-obsidian">
+            Let's build something meaningful.
+          </h2>
+          <p class="text-sm sm:text-base text-slateMuted leading-relaxed pt-1">
+            Always open to connecting with engineers, exploring interesting projects, discussing AI and electronics, and discovering internship opportunities where ideas turn into real systems.
+          </p>
+        </div>
+
+        <!-- 4 Crisp Bento Link Cards (Strictly Verified Links Only) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <a
+            href="https://github.com/SATHVIK-31"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group p-4 rounded-[4px] bg-canvas hover:bg-obsidian border border-hairline hover:border-obsidian transition-colors flex flex-col justify-between gap-3"
+          >
+            <div class="flex items-center justify-between font-mono text-[10px] text-slateMuted group-hover:text-zinc-400">
+              <span>GITHUB</span>
+              <span>↗</span>
+            </div>
+            <div class="font-mono text-xs font-bold text-obsidian group-hover:text-white truncate">
+              github.com/SATHVIK-31
+            </div>
+          </a>
+
+          <a
+            href="https://linkedin.com/in/sathvik-nama-350264293"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group p-4 rounded-[4px] bg-canvas hover:bg-obsidian border border-hairline hover:border-obsidian transition-colors flex flex-col justify-between gap-3"
+          >
+            <div class="flex items-center justify-between font-mono text-[10px] text-slateMuted group-hover:text-zinc-400">
+              <span>LINKEDIN</span>
+              <span>↗</span>
+            </div>
+            <div class="font-mono text-xs font-bold text-obsidian group-hover:text-white truncate">
+              in/sathvik-nama-350264293
+            </div>
+          </a>
+
+          <button
+            id="copy-email-card"
+            class="text-left group p-4 rounded-[4px] bg-canvas hover:bg-obsidian border border-hairline hover:border-obsidian transition-colors flex flex-col justify-between gap-3"
+          >
+            <div class="flex items-center justify-between font-mono text-[10px] text-slateMuted group-hover:text-zinc-400">
+              <span>EMAIL</span>
+              <span class="text-crimson group-hover:text-rose-400">COPY</span>
+            </div>
+            <div class="font-mono text-xs font-bold text-obsidian group-hover:text-white truncate">
+              sathviknama31@gmail.com
+            </div>
+          </button>
+
+          <button
+            data-open-resume
+            class="text-left group p-4 rounded-[4px] bg-obsidian hover:bg-crimson border border-obsidian hover:border-crimson transition-colors flex flex-col justify-between gap-3"
+          >
+            <div class="flex items-center justify-between font-mono text-[10px] text-zinc-400 group-hover:text-white/80">
+              <span>RÉSUMÉ</span>
+              <span>PDF</span>
+            </div>
+            <div class="font-mono text-xs font-bold text-white">
+              View / Download PDF →
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-2 px-1 font-mono text-[11px] text-slateMuted">
+        <span>© 2026 SATHVIK NAMA · THANJAVUR, INDIA</span>
+        <span>PRESS <kbd class="px-1.5 py-0.5 bg-white border border-hairline rounded-[3px] text-obsidian">⌘K</kbd> FOR QUICK NAVIGATION</span>
+      </div>
+    </footer>
+  </main>
+
+  <!-- =========================================================================
+       DEVELOPER COMMAND PALETTE MODAL (⌘K / Ctrl+K)
+       ========================================================================= -->
+  <div id="cmd-modal" class="fixed inset-0 z-50 hidden items-start justify-center pt-20 sm:pt-28 bg-obsidian/55 backdrop-blur-sm p-4">
+    <div class="w-full max-w-lg bg-white border border-obsidian rounded-[6px] shadow-2xl overflow-hidden">
+      <div class="flex items-center gap-3 px-4 py-3 border-b border-hairline">
+        <span class="font-mono text-xs font-bold text-crimson">⌘K</span>
+        <input
+          id="cmd-input"
+          type="text"
+          placeholder="Jump to section, project, optical mode, or action..."
+          class="w-full bg-transparent text-sm text-obsidian placeholder-zinc-400 outline-none"
+        />
+        <button id="cmd-close-btn" class="font-mono text-[10px] px-2 py-1 rounded-[3px] bg-zinc-100 border border-hairline text-slateMuted hover:text-obsidian">ESC</button>
+      </div>
+      <div id="cmd-list" class="max-h-72 overflow-y-auto p-1.5 space-y-0.5"></div>
+      <div class="px-4 py-2 bg-canvas border-t border-hairline flex items-center justify-between font-mono text-[10px] text-slateMuted">
+        <span>↑↓ Navigate · ↵ Select</span>
+        <span>SATHVIK.SYS</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       PRINTABLE SINGLE-PAGE TECHNICAL RESUME MODAL
+       ========================================================================= -->
+  <div id="resume-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-obsidian/70 backdrop-blur-sm p-4">
+    <div id="resume-sheet" class="w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white text-obsidian border border-obsidian rounded-[6px] p-6 sm:p-8 shadow-2xl relative">
+      <button id="resume-close-x" class="no-print absolute top-5 right-5 w-8 h-8 rounded-[4px] bg-zinc-100 hover:bg-obsidian hover:text-white border border-hairline flex items-center justify-center font-mono text-xs transition-colors">✕</button>
+
+      <!-- Header -->
+      <div class="border-b-2 border-obsidian pb-4">
+        <h2 class="font-display font-bold text-2xl sm:text-3xl tracking-tight">SATHVIK NAMA</h2>
+        <p class="text-xs sm:text-sm font-medium text-slateMuted mt-0.5">
+          B.Tech Electronics &amp; Instrumentation Engineering | Embedded Systems &amp; Firmware
+        </p>
+        <p class="font-mono text-[11px] text-zinc-600 mt-1.5">
+          Thanjavur, Tamil Nadu, India · sathviknama31@gmail.com · linkedin.com/in/sathvik-nama-350264293 · github.com/SATHVIK-31
+        </p>
+      </div>
+
+      <div class="mt-4 space-y-4 text-xs sm:text-[12.5px] leading-relaxed">
+        <!-- Education -->
+        <div>
+          <h3 class="font-mono text-[10px] font-bold tracking-[0.16em] uppercase text-crimson mb-1.5">EDUCATION</h3>
+          <ul class="space-y-1 text-zinc-800">
+            <li>
+              <strong>B.Tech, Electronics &amp; Instrumentation Engineering</strong> — SASTRA Deemed University, Thanjavur (2024–2028) · CGPA: <strong>7.65</strong> · Sem 4 SGPA: <strong>8.05</strong> · Elective Track: <strong>Firmware</strong>
+            </li>
+            <li><strong>Class XII (CBSE)</strong>, Chennai (2022–2024) — <strong>89.6%</strong></li>
+            <li><strong>Class X (CBSE)</strong>, Chennai (2020–2022) — <strong>77.6%</strong></li>
+          </ul>
+        </div>
+
+        <!-- Technical Skills -->
+        <div>
+          <h3 class="font-mono text-[10px] font-bold tracking-[0.16em] uppercase text-crimson mb-1.5">TECHNICAL SKILLS</h3>
+          <p class="text-zinc-800">
+            <strong>Languages:</strong> C, Embedded C, Python, SQL, Basic C++ ·
+            <strong>Microcontrollers &amp; Hardware:</strong> STM32F103C8T6 (ARM Cortex-M3), ESP32, KiCad (Schematic Capture &amp; Layout), Power Electronics, Analog Signal Conditioning ·
+            <strong>AI / ML:</strong> Machine Learning, Deep Learning, NLP, Generative AI, LLMs, RAG, AI Agents, SHAP ·
+            <strong>Tools:</strong> Git, GitHub, VS Code, Jupyter Notebook, Code Composer Studio, STM32CubeIDE.
+          </p>
+        </div>
+
+        <!-- Engineering Projects -->
+        <div>
+          <h3 class="font-mono text-[10px] font-bold tracking-[0.16em] uppercase text-crimson mb-1.5">ENGINEERING PROJECTS</h3>
+          <ul class="list-disc pl-4 space-y-1.5 text-zinc-800">
+            <li>
+              <strong>Digitally Controlled Synchronous Buck Converter (STM32F103C8T6, KiCad, Ongoing):</strong> Designing a closed-loop synchronous buck converter stepping 12V DC to 5V DC with IR2104 gate driver, LM358 analog signal conditioning, STM32 ADC feedback, and Zero-Current Switching (ZCS) exploration.
+            </li>
+            <li>
+              <strong>EEG-Based Neuro-State Classification (Python, XGBoost, CTGAN, SHAP):</strong> Butterworth 7–31 Hz bandpass and 50 Hz notch filtering pipeline; XGBoost achieved 93.40% accuracy on a 106-sample real-data holdout set in one experimental configuration.
+            </li>
+            <li>
+              <strong>Analog Sensor Acquisition &amp; Photodiode Interfacing (ESP32, C/C++):</strong> Interfaced infrared photodiode and DHT22 sensors using 12-bit ADC channels, multi-sample averaging, and real-time UART serial telemetry.
+            </li>
+            <li>
+              <strong>Customer Retention Analytics Dashboard (SQL, Data Analytics):</strong> Structured SQL and dashboard analytics project investigating churn factors and retention KPIs (<code>customer-retention-analytics-dashboard</code>).
+            </li>
+          </ul>
+        </div>
+
+        <!-- Research Publication -->
+        <div>
+          <h3 class="font-mono text-[10px] font-bold tracking-[0.16em] uppercase text-crimson mb-1.5">RESEARCH PUBLICATION</h3>
+          <p class="text-zinc-800">
+            <strong>Co-Author, ICRM 2026 (Accepted):</strong> <em>"Cortical Dynamics of Motor and Tactile Tasks Revealed Through EEG Classification and SHAP Interpretability"</em> — Advisor / Collaborator: Prof. K. Adalarasu.
+          </p>
+        </div>
+
+        <!-- Achievements & Leadership -->
+        <div>
+          <h3 class="font-mono text-[10px] font-bold tracking-[0.16em] uppercase text-crimson mb-1.5">ACHIEVEMENTS &amp; LEADERSHIP</h3>
+          <ul class="list-disc pl-4 space-y-1 text-zinc-800">
+            <li><strong>Winner — Genesis Ideathon (2025):</strong> 1st place among 30+ teams, Byte Club, SASTRA University — IoT Women Safety Wearable with Emergency Alert System.</li>
+            <li><strong>Active Core Member — Byte Club (2024–Present):</strong> Co-organizing hackathons, ideathons, and embedded hardware workshops at SASTRA Deemed University.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Modal Footer Actions -->
+      <div class="no-print mt-6 pt-4 border-t border-hairline flex flex-wrap items-center justify-between gap-3">
+        <button onclick="window.print()" class="bg-obsidian hover:bg-crimson text-white font-mono text-xs font-bold tracking-wider uppercase px-5 py-2.5 rounded-[4px] transition-colors">
+          Print / Save as PDF
+        </button>
+        <button id="resume-close-btn" class="border border-hairline hover:border-obsidian text-obsidian font-mono text-xs font-semibold uppercase px-4 py-2.5 rounded-[4px] transition-colors">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 z-[60] pointer-events-none opacity-0 translate-y-2 transition-all duration-250 bg-obsidian text-white border border-white/15 px-4 py-2 rounded-[4px] font-mono text-[11px] tracking-wider shadow-xl">
+    <span id="toast-text">COPIED</span>
+  </div>
+
+  <!-- =========================================================================
+       APPLICATION SCRIPT
+       ========================================================================= -->
+  <script>
+    // =========================================================================
+    // 1. VERIFIED DATA DEFINITIONS
+    // =========================================================================
+    const PROJECTS = [
+      {
+        id: 0,
+        num: '01',
+        title: 'EEG-Based Neuro-State Classification',
+        category: 'Research / Machine Learning / Signal Processing',
+        status: 'RESEARCH / EXPERIMENTATION',
+        cadTitle: '01 · EEG NEURO-STATE',
+        cadSub: '7–31 HZ WAVEFORMS + SHAP',
+        description: 'Developed a machine learning pipeline for EEG signal analysis and classification using EEG data collected during different activity states. The project explores signal preprocessing, feature extraction, synthetic data augmentation, and machine learning classification to investigate patterns in brain activity.',
+        stack: ['Python', 'NumPy', 'Pandas', 'Scikit-learn', 'XGBoost', 'LightGBM', 'CTGAN', 'SHAP'],
+        keyWork: [
+          'Butterworth bandpass filtering, 7–31 Hz',
+          '50 Hz notch filtering',
+          'Handcrafted EEG feature extraction',
+          'CTGAN synthetic data augmentation',
+          'Model training and comparison',
+          'SHAP-based feature interpretation'
+        ],
+        resultLabel: 'VERIFIED RESULT',
+        result: 'XGBoost achieved 93.40% accuracy on a real-data holdout set of 106 samples in one experimental configuration.',
+        repoUrl: null,
+        repoName: null
+      },
+      {
+        id: 1,
+        num: '02',
+        title: 'Customer Retention Analytics Dashboard',
+        category: 'Data Analytics',
+        status: 'COMPLETED',
+        cadTitle: '02 · RETENTION ANALYTICS',
+        cadSub: 'ISOMETRIC SQL / KPI PLANES',
+        description: 'Created a customer retention analytics project to explore customer behavior, identify retention patterns, and understand factors associated with customer churn using data-driven analysis.',
+        stack: ['SQL', 'Data Analytics', 'Dashboard Visualization'],
+        keyWork: [
+          'SQL-based customer data analysis',
+          'Retention and churn investigation',
+          'KPI analysis',
+          'Customer behavior exploration',
+          'Dashboard visualization'
+        ],
+        resultLabel: 'RESULT',
+        result: 'Developed a structured analytics dashboard project that transforms customer data into business-oriented insights.',
+        repoUrl: 'https://github.com/SATHVIK-31/customer-retention-analytics-dashboard',
+        repoName: 'customer-retention-analytics-dashboard'
+      },
+      {
+        id: 2,
+        num: '03',
+        title: 'STM32 Embedded Power Electronics System',
+        category: 'Embedded / Firmware / Hardware',
+        status: 'IN PROGRESS',
+        cadTitle: '03 · STM32 BUCK PCB',
+        cadSub: 'STM32 + TOROID + ZCS PULSES',
+        description: 'An ongoing hardware-focused engineering project involving microcontroller-based control and power electronics design. The project explores circuit design, current sensing, analog signal conditioning, and embedded control techniques.',
+        stack: ['STM32', 'Embedded C', 'LM358', 'Power Electronics', 'PCB Design', 'Firmware Development'],
+        keyWork: [
+          'STM32-based control',
+          'Buck converter concepts',
+          'Current sensing',
+          'Analog signal conditioning',
+          'LM358 op-amp circuit',
+          'PCB schematic development',
+          'Zero-Current Switching (ZCS) exploration'
+        ],
+        resultLabel: 'RESULT',
+        result: 'Ongoing circuit and prototype development focused on practical hardware design, signal measurement, and embedded control.',
+        repoUrl: null,
+        repoName: null
+      },
+      {
+        id: 3,
+        num: '04',
+        title: 'Generative AI & Agentic AI Lab',
+        category: 'AI / Generative AI / LLMs',
+        status: 'EXPLORATION / LEARNING',
+        cadTitle: '04 · AGENTIC AI LAB',
+        cadSub: 'MULTI-AGENT TOOL GRAPH',
+        description: 'Exploring modern AI application development through large language models, generative AI workflows, retrieval-augmented generation, and autonomous AI agents.',
+        topics: ['LLMs', 'Generative AI', 'RAG', 'LangChain', 'AI agent architecture', 'Tool calling', 'Multi-agent systems', 'Context engineering', 'Model evaluation'],
+        stack: ['Python', 'LLMs', 'LangChain', 'RAG', 'AI Agent frameworks'],
+        keyWork: null,
+        resultLabel: 'RESULT',
+        result: 'Developing foundational knowledge and experimenting with AI workflows, architectures, and practical applications.',
+        repoUrl: null,
+        repoName: null
+      }
+    ];
+
+    const SKILLS = [
+      {
+        category: 'AI / MACHINE LEARNING',
+        items: [
+          { name: 'Machine Learning', projects: [0] },
+          { name: 'Deep Learning', projects: [0, 3] },
+          { name: 'NLP', projects: [3] },
+          { name: 'Generative AI', projects: [3] },
+          { name: 'LLM Fundamentals', projects: [3] },
+          { name: 'RAG', projects: [3] },
+          { name: 'AI Agents', projects: [3] },
+          { name: 'SHAP', projects: [0] },
+          { name: 'Explainable AI', projects: [0] }
+        ]
+      },
+      {
+        category: 'PROGRAMMING',
+        items: [
+          { name: 'Python', projects: [0, 3] },
+          { name: 'C', projects: [2] },
+          { name: 'SQL', projects: [1] },
+          { name: 'Embedded C', projects: [2] },
+          { name: 'Basic C++', projects: [2] }
+        ]
+      },
+      {
+        category: 'ELECTRONICS / EMBEDDED',
+        items: [
+          { name: 'STM32', projects: [2] },
+          { name: 'Microcontrollers', projects: [2] },
+          { name: 'Firmware Development', projects: [2] },
+          { name: 'PCB Design', projects: [2] },
+          { name: 'Power Electronics', projects: [2] },
+          { name: 'Signal Processing', projects: [0, 2] },
+          { name: 'Analog Circuit Design', projects: [2] }
+        ]
+      },
+      {
+        category: 'TOOLS',
+        items: [
+          { name: 'Git', projects: [0, 1, 2, 3] },
+          { name: 'GitHub', projects: [0, 1, 2, 3] },
+          { name: 'VS Code', projects: [0, 1, 2, 3] },
+          { name: 'Jupyter Notebook', projects: [0, 3] },
+          { name: 'Code Composer Studio', projects: [2] },
+          { name: 'STM32CubeIDE', projects: [2] },
+          { name: 'AI-assisted development tools', projects: [0, 3] }
+        ]
+      }
+    ];
+
+    // =========================================================================
+    // 2. UTILITIES: TOAST & SAFE CLIPBOARD COPY
+    // =========================================================================
+    let toastTimer = null;
+    function showToast(message) {
+      const el = document.getElementById('toast');
+      const txt = document.getElementById('toast-text');
+      if (!el || !txt) return;
+      txt.textContent = message;
+      el.classList.remove('opacity-0', 'translate-y-2');
+      el.classList.add('opacity-100', 'translate-y-0');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        el.classList.add('opacity-0', 'translate-y-2');
+        el.classList.remove('opacity-100', 'translate-y-0');
+      }, 2200);
+    }
+
+    function copyToClipboard(text, label) {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast(`${label} COPIED TO CLIPBOARD`);
+      } catch (err) {
+        showToast(`COPY FAILED: ${text}`);
+      }
+    }
+
+    // =========================================================================
+    // 3. RENDER PROJECTS & CROSS-LINKED SKILLS MATRIX
+    // =========================================================================
+    let activeSceneIdx = 0;
+
+    function renderProjectsList() {
+      const container = document.getElementById('projects-list');
+      container.innerHTML = PROJECTS.map((p) => `
+        <article
+          data-project-id="${p.id}"
+          class="project-card bento-card p-6 sm:p-7 space-y-4 cursor-pointer ${p.id === 0 ? 'project-card-active' : ''}"
+          onclick="setActiveScene(${p.id})"
+        >
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <span class="font-mono text-[11px] font-bold tracking-[0.14em] text-crimson uppercase">
+              PROJECT ${p.num} · ${p.category}
+            </span>
+            <span class="font-mono text-[10px] font-semibold tracking-wider uppercase px-2.5 py-0.5 rounded-[3px] bg-zinc-100 border border-hairline text-obsidian">
+              ${p.status}
+            </span>
+          </div>
+
+          <h3 class="font-display font-bold text-xl sm:text-2xl text-obsidian tracking-tight">
+            ${p.title}
+          </h3>
+
+          <p class="text-sm text-slateMuted leading-relaxed">
+            ${p.description}
+          </p>
+
+          ${p.keyWork ? `
+            <div>
+              <div class="font-mono text-[10px] font-bold tracking-[0.16em] uppercase text-obsidian mb-2">KEY WORK</div>
+              <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1.5 text-xs sm:text-[13px] text-zinc-700">
+                ${p.keyWork.map(item => `<li class="flex items-start gap-1.5"><span class="text-crimson font-bold">›</span><span>${item}</span></li>`).join('')}
+              </ul>
+            </div>
+          ` : ''}
+
+          ${p.topics ? `
+            <div>
+              <div class="font-mono text-[10px] font-bold tracking-[0.16em] uppercase text-obsidian mb-2">EXPLORED TOPICS</div>
+              <div class="flex flex-wrap gap-1.5">
+                ${p.topics.map(t => `<span class="font-mono text-[10px] px-2 py-0.5 rounded-[3px] bg-canvas border border-hairline text-zinc-700">${t}</span>`).join('')}
+              </div>
+            </div>
+          ` : ''}
+
+          <div class="p-3.5 rounded-[4px] bg-canvas border-l-2 border-crimson border-y border-r border-zinc-200 text-xs sm:text-[13px] text-obsidian leading-relaxed">
+            <span class="font-mono text-[10px] font-bold tracking-[0.14em] uppercase text-crimson block mb-0.5">${p.resultLabel}</span>
+            ${p.result}
+            ${p.repoUrl ? `
+              <div class="mt-2">
+                <a
+                  href="${p.repoUrl}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onclick="event.stopPropagation();"
+                  class="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold text-obsidian hover:text-crimson underline underline-offset-2"
+                >
+                  <span>Repository: ${p.repoName}</span>
+                  <span>↗</span>
+                </a>
+              </div>
+            ` : ''}
+          </div>
+
+          <div class="pt-3 border-t border-zinc-200 flex flex-wrap gap-1.5">
+            ${p.stack.map(s => `<span class="font-mono text-[10px] font-medium px-2 py-0.5 rounded-[3px] bg-zinc-100 border border-zinc-200 text-obsidian">${s}</span>`).join('')}
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function renderSkillsMatrix() {
+      const grid = document.getElementById('skills-matrix-grid');
+      const indicator = document.getElementById('skill-active-indicator');
+
+      grid.innerHTML = SKILLS.map(group => `
+        <div class="bento-card p-6 space-y-3.5">
+          <div class="flex items-center justify-between border-b border-zinc-200 pb-2">
+            <h3 class="font-mono text-xs font-bold tracking-[0.16em] text-crimson uppercase">${group.category}</h3>
+            <span class="font-mono text-[10px] text-zinc-400">${group.items.length} ITEMS</span>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            ${group.items.map(item => `
+              <button
+                class="skill-pill font-mono text-xs px-3 py-1.5 rounded-[4px] bg-canvas hover:bg-obsidian hover:text-white border border-hairline hover:border-obsidian text-obsidian transition-colors"
+                data-projects="${item.projects.join(',')}"
+                data-skill-name="${item.name}"
+              >
+                ${item.name}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+
+      document.querySelectorAll('.skill-pill').forEach(pill => {
+        const ids = pill.getAttribute('data-projects').split(',').map(Number);
+        const formatted = ids.map(i => `0${i + 1}`).join(', ');
+        const name = pill.getAttribute('data-skill-name');
+
+        pill.addEventListener('mouseenter', () => {
+          indicator.innerHTML = `<span class="text-crimson font-bold">${name}</span> → Used in Project <strong class="text-obsidian">${formatted}</strong>`;
+          document.querySelectorAll('.project-card').forEach(card => {
+            const cid = Number(card.getAttribute('data-project-id'));
+            card.classList.toggle('project-card-skill-match', ids.includes(cid));
+          });
+        });
+
+        pill.addEventListener('mouseleave', () => {
+          indicator.textContent = 'Hover or click a skill to inspect linked projects.';
+          document.querySelectorAll('.project-card').forEach(card => {
+            card.classList.remove('project-card-skill-match');
+          });
+        });
+
+        pill.addEventListener('click', () => {
+          const firstId = ids[0];
+          setActiveScene(firstId);
+          const targetCard = document.querySelector(`.project-card[data-project-id="${firstId}"]`);
+          if (targetCard) {
+            targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            targetCard.classList.add('project-card-skill-match');
+            setTimeout(() => targetCard.classList.remove('project-card-skill-match'), 1800);
+          }
+          showToast(`${name.toUpperCase()} · PROJECT 0${firstId + 1}`);
+        });
+      });
+    }
+
+    // =========================================================================
+    // 4. MAREA LIQUID-SIGNAL X-RAY PORTRAIT ENGINE (DEFAULT ACTIVE)
+    // =========================================================================
+    let opticalMode = 'xray'; // 'xray' | 'blueprint' | 'studio'
+    let portraitCanvas, portraitCtx;
+    let liquidDrops = [];
+    let pointerNorm = { x: 0.5, y: 0.5 };
+    let pointerSpring = { x: 0.5, y: 0.5 };
+    let demoSweepActive = true;
+    let demoSweepStart = 0;
+
+    function setOpticalMode(mode) {
+      opticalMode = mode;
+      document.querySelectorAll('.optical-btn').forEach(btn => {
+        const active = btn.getAttribute('data-optical') === mode;
+        btn.className = active
+          ? 'optical-btn px-2 py-1 rounded-[3px] bg-obsidian text-white font-bold transition-colors'
+          : 'optical-btn px-2 py-1 rounded-[3px] text-slateMuted hover:text-obsidian transition-colors';
+      });
+
+      const labelMap = {
+        xray: 'MAREA X-RAY LENS',
+        blueprint: 'ARCHITECTURAL BLUEPRINT',
+        studio: 'STUDIO MONOCHROME'
+      };
+      const statusMap = {
+        xray: 'LAYER: STM32F103C8T6 + 7–31 HZ EEG',
+        blueprint: 'GRID: GOLDEN RATIO + LIVE RETICLE',
+        studio: 'CLEAN EDITORIAL MONOCHROME'
+      };
+      const hintMap = {
+        xray: 'MOVE OVER PORTRAIT · POUR X-RAY',
+        blueprint: 'MOVE OVER PORTRAIT · INSPECT XY',
+        studio: 'CLEAN STUDIO PORTRAIT'
+      };
+
+      document.getElementById('optical-mode-label').textContent = labelMap[mode];
+      document.getElementById('portrait-status-text').textContent = statusMap[mode];
+      document.getElementById('portrait-hint-pill').textContent = hintMap[mode];
+    }
+
+    function initPortraitEngine() {
+      const stage = document.getElementById('portrait-stage');
+      portraitCanvas = document.getElementById('portrait-fx-canvas');
+      portraitCtx = portraitCanvas.getContext('2d');
+
+      const spawnLiquid = (clientX, clientY) => {
+        demoSweepActive = false;
+        const rect = stage.getBoundingClientRect();
+        if (rect.width === 0 || rect.height === 0) return;
+
+        const nx = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+        const ny = Math.max(0, Math.min(1, (clientY - rect.top) / rect.height));
+        pointerNorm.x = nx;
+        pointerNorm.y = ny;
+
+        document.getElementById('portrait-coords').textContent =
+          `X:${String(Math.round(nx * 100)).padStart(3, '0')} Y:${String(Math.round(ny * 100)).padStart(3, '0')}`;
+
+        if (opticalMode === 'xray') {
+          const x = nx * portraitCanvas.width;
+          const y = ny * portraitCanvas.height;
+          liquidDrops.push({
+            x,
+            y,
+            vx: (Math.random() - 0.5) * 1.4,
+            vy: (Math.random() - 0.5) * 1.4,
+            r: 52 + Math.random() * 16,
+            life: 1.0
+          });
+          if (liquidDrops.length > 28) liquidDrops.shift();
+        }
+      };
+
+      stage.addEventListener('mousemove', (e) => spawnLiquid(e.clientX, e.clientY));
+      stage.addEventListener('touchmove', (e) => {
+        if (e.touches[0]) spawnLiquid(e.touches[0].clientX, e.touches[0].clientY);
+      }, { passive: true });
+
+      document.querySelectorAll('.optical-btn').forEach(btn => {
+        btn.addEventListener('click', () => setOpticalMode(btn.getAttribute('data-optical')));
+      });
+
+      // Local Photo Swap Fallback
+      const fileInput = document.getElementById('portrait-file-input');
+      const img = document.getElementById('hero-portrait-img');
+      fileInput.addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          img.src = ev.target.result;
+          showToast('PORTRAIT PHOTO UPDATED');
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function renderPortraitOverlay(t) {
+      if (!portraitCtx || !portraitCanvas || portraitCanvas.width === 0) return;
+      const w = portraitCanvas.width;
+      const h = portraitCanvas.height;
+      portraitCtx.clearRect(0, 0, w, h);
+
+      if (opticalMode === 'studio') return;
+
+      // Gentle spring follow for blueprint reticle
+      pointerSpring.x += (pointerNorm.x - pointerSpring.x) * 0.16;
+      pointerSpring.y += (pointerNorm.y - pointerSpring.y) * 0.16;
+
+      if (opticalMode === 'blueprint') {
+        // Golden Ratio architectural gridlines
+        portraitCtx.strokeStyle = 'rgba(225, 29, 72, 0.35)';
+        portraitCtx.lineWidth = 1.5;
+        [0.382, 0.618].forEach(ratio => {
+          portraitCtx.beginPath(); portraitCtx.moveTo(w * ratio, 0); portraitCtx.lineTo(w * ratio, h); portraitCtx.stroke();
+          portraitCtx.beginPath(); portraitCtx.moveTo(0, h * ratio); portraitCtx.lineTo(w, h * ratio); portraitCtx.stroke();
+        });
+
+        // Perimeter coordinate ruler ticks
+        portraitCtx.strokeStyle = 'rgba(9, 9, 11, 0.35)';
+        for (let i = 1; i < 12; i++) {
+          const tx = (w / 12) * i;
+          const ty = (h / 12) * i;
+          portraitCtx.beginPath(); portraitCtx.moveTo(tx, 0); portraitCtx.lineTo(tx, 10); portraitCtx.stroke();
+          portraitCtx.beginPath(); portraitCtx.moveTo(0, ty); portraitCtx.lineTo(10, ty); portraitCtx.stroke();
+        }
+
+        // Live Crosshair Reticle
+        const cx = pointerSpring.x * w;
+        const cy = pointerSpring.y * h;
+        portraitCtx.strokeStyle = '#E11D48';
+        portraitCtx.lineWidth = 2;
+        portraitCtx.beginPath();
+        portraitCtx.arc(cx, cy, 28, 0, Math.PI * 2);
+        portraitCtx.moveTo(cx - 46, cy); portraitCtx.lineTo(cx + 46, cy);
+        portraitCtx.moveTo(cx, cy - 46); portraitCtx.lineTo(cx, cy + 46);
+        portraitCtx.stroke();
+
+        portraitCtx.fillStyle = '#E11D48';
+        portraitCtx.font = 'bold 16px "JetBrains Mono", monospace';
+        portraitCtx.fillText(`XY[${Math.round(pointerSpring.x * 100)},${Math.round(pointerSpring.y * 100)}]`, cx + 14, cy - 14);
+        return;
+      }
+
+      // X-RAY MODE (Marea Liquid-Signal X-Ray Reveal)
+      if (demoSweepActive) {
+        if (demoSweepStart === 0) demoSweepStart = t;
+        const p = (t - demoSweepStart) / 1.4;
+        if (p <= 1.0) {
+          const sx = (0.28 + p * 0.44) * w;
+          const sy = (0.46 + Math.sin(p * Math.PI * 2) * 0.08) * h;
+          liquidDrops.push({ x: sx, y: sy, vx: 0.4, vy: 0, r: 58, life: 0.92 });
+        } else {
+          demoSweepActive = false;
+        }
+      }
+
+      // Decay liquid drops cleanly within ~1 second
+      for (let i = liquidDrops.length - 1; i >= 0; i--) {
+        const d = liquidDrops[i];
+        d.x += d.vx;
+        d.y += d.vy;
+        d.r += 0.85;
+        d.life -= 0.017; // ~1.0s at 60fps
+        if (d.life <= 0) liquidDrops.splice(i, 1);
+      }
+
+      if (liquidDrops.length === 0) return;
+
+      // Clip to organic metaball cluster to reveal X-Ray schematic layer
+      portraitCtx.save();
+      portraitCtx.beginPath();
+      liquidDrops.forEach(d => {
+        const rad = Math.max(4, d.r * Math.min(1, d.life * 1.4));
+        portraitCtx.moveTo(d.x + rad, d.y);
+        portraitCtx.arc(d.x, d.y, rad, 0, Math.PI * 2);
+      });
+      portraitCtx.clip();
+
+      // Deep Obsidian X-Ray Substrate
+      portraitCtx.fillStyle = 'rgba(9, 9, 13, 0.72)';
+      portraitCtx.fillRect(0, 0, w, h);
+
+      // Subtle Schematic Micro-Grid
+      portraitCtx.strokeStyle = 'rgba(255, 255, 255, 0.06)';
+      portraitCtx.lineWidth = 1;
+      for (let gx = 0; gx < w; gx += 36) {
+        portraitCtx.beginPath(); portraitCtx.moveTo(gx, 0); portraitCtx.lineTo(gx, h); portraitCtx.stroke();
+      }
+      for (let gy = 0; gy < h; gy += 36) {
+        portraitCtx.beginPath(); portraitCtx.moveTo(0, gy); portraitCtx.lineTo(w, gy); portraitCtx.stroke();
+      }
+
+      // Glowing PCB Copper Traces (45-degree routed buses)
+      portraitCtx.strokeStyle = 'rgba(225, 29, 72, 0.88)';
+      portraitCtx.lineWidth = 2.4;
+      for (let i = 1; i <= 7; i++) {
+        const y = (h / 8) * i;
+        const bend = i % 2 === 0 ? 32 : -32;
+        portraitCtx.beginPath();
+        portraitCtx.moveTo(0, y);
+        portraitCtx.lineTo(w * 0.34, y);
+        portraitCtx.lineTo(w * 0.48, y + bend);
+        portraitCtx.lineTo(w, y + bend);
+        portraitCtx.stroke();
+
+        // Via pads
+        portraitCtx.fillStyle = '#09090B';
+        portraitCtx.strokeStyle = '#38BDF8';
+        portraitCtx.lineWidth = 2;
+        portraitCtx.beginPath();
+        portraitCtx.arc(w * 0.34, y, 5, 0, Math.PI * 2);
+        portraitCtx.fill();
+        portraitCtx.stroke();
+        portraitCtx.strokeStyle = 'rgba(225, 29, 72, 0.88)';
+      }
+
+      // Live Animated 7–31 Hz EEG Waveform inside X-Ray lens
+      portraitCtx.strokeStyle = '#38BDF8';
+      portraitCtx.lineWidth = 2.4;
+      portraitCtx.beginPath();
+      for (let x = 0; x < w; x += 5) {
+        const y = h * 0.5 + Math.sin(x * 0.035 + t * 5.5) * 18 + Math.cos(x * 0.11 - t * 8.0) * 7;
+        if (x === 0) portraitCtx.moveTo(x, y); else portraitCtx.lineTo(x, y);
+      }
+      portraitCtx.stroke();
+
+      // STM32F103C8T6 Pinout Callouts & Coordinate Ticks
+      portraitCtx.fillStyle = '#FFFFFF';
+      portraitCtx.font = 'bold 16px "JetBrains Mono", monospace';
+      portraitCtx.fillText('STM32F103C8T6', w * 0.08, h * 0.23);
+      portraitCtx.fillStyle = '#FDA4AF';
+      portraitCtx.fillText('PA0/ADC · TIM1_CH1N', w * 0.08, h * 0.36);
+      portraitCtx.fillText('SWDIO // 7–31 HZ EEG', w * 0.44, h * 0.72);
+      portraitCtx.fillStyle = '#38BDF8';
+      portraitCtx.fillText('LM358_FB  [5.00V]', w * 0.12, h * 0.84);
+
+      portraitCtx.restore();
+
+      // Crisp Crimson Chromatic Meniscus Rim around Liquid Lens
+      liquidDrops.forEach(d => {
+        const rad = Math.max(4, d.r * Math.min(1, d.life * 1.4));
+        // Subtle cyan chromatic offset
+        portraitCtx.beginPath();
+        portraitCtx.arc(d.x - 1.5, d.y + 1, rad, 0, Math.PI * 2);
+        portraitCtx.strokeStyle = `rgba(56, 189, 248, ${(d.life * 0.35).toFixed(2)})`;
+        portraitCtx.lineWidth = 2;
+        portraitCtx.stroke();
+
+        // Primary Signal Crimson Rim
+        portraitCtx.beginPath();
+        portraitCtx.arc(d.x, d.y, rad, 0, Math.PI * 2);
+        portraitCtx.strokeStyle = `rgba(225, 29, 72, ${(d.life * 0.88).toFixed(2)})`;
+        portraitCtx.lineWidth = 2.6;
+        portraitCtx.stroke();
+      });
+    }
+
+    // =========================================================================
+    // 5. THREE.JS 3D CAD WIREFRAME VIEWPORT (4 SCENES + ORBIT + SCROLL SYNC)
+    // =========================================================================
+    let cadRenderer, cadScene, cadCamera;
+    let cadGroups = [];
+    let cadEegLines = [];
+    let cadPulseParticles = [];
+    let cadAgentPackets = [];
+    let cadOrbit = {
+      dragging: false,
+      prevX: 0,
+      prevY: 0,
+      rotX: 0.35,
+      rotY: 0.55,
+      targetX: 0.35,
+      targetY: 0.55
+    };
+
+    function initCadViewport() {
+      const canvas = document.getElementById('cad-3d-canvas');
+      cadRenderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+      cadRenderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+      cadScene = new THREE.Scene();
+      cadCamera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
+      cadCamera.position.set(0, 0.4, 5.4);
+
+      const darkWire = new THREE.MeshBasicMaterial({ color: 0x18181b, wireframe: true });
+      const mutedWire = new THREE.MeshBasicMaterial({ color: 0x71717a, wireframe: true });
+      const crimsonWire = new THREE.MeshBasicMaterial({ color: 0xe11d48, wireframe: true });
+      const crimsonSolid = new THREE.MeshBasicMaterial({ color: 0xe11d48 });
+
+      // --- SCENE 01: EEG 7–31 Hz Wave Ribbons + SHAP Bar Cluster ---
+      const g1 = new THREE.Group();
+      for (let ch = 0; ch < 5; ch++) {
+        const pts = [];
+        for (let i = 0; i < 64; i++) {
+          pts.push(new THREE.Vector3((i / 63 - 0.5) * 4.2, (ch - 2) * 0.38, 0));
+        }
+        const geo = new THREE.BufferGeometry().setFromPoints(pts);
+        const mat = new THREE.LineBasicMaterial({ color: ch === 2 ? 0xe11d48 : 0x18181b });
+        const line = new THREE.Line(geo, mat);
+        g1.add(line);
+        cadEegLines.push({ line, ch });
+      }
+      for (let b = 0; b < 6; b++) {
+        const h = 0.35 + ((b * 2) % 3) * 0.28;
+        const bar = new THREE.Mesh(new THREE.BoxGeometry(0.24, h, 0.24), b % 2 === 0 ? crimsonWire : darkWire);
+        bar.position.set((b - 2.5) * 0.5, -1.45 + h / 2, 0.35);
+        g1.add(bar);
+      }
+      cadScene.add(g1);
+      cadGroups.push(g1);
+
+      // --- SCENE 02: Isometric SQL / KPI Planes + Rotating Metric Rings ---
+      const g2 = new THREE.Group();
+      for (let i = 0; i < 3; i++) {
+        const plane = new THREE.Mesh(
+          new THREE.BoxGeometry(2.6 - i * 0.35, 0.06, 1.8 - i * 0.2),
+          i === 1 ? crimsonWire : darkWire
+        );
+        plane.position.y = (i - 1) * 0.62;
+        g2.add(plane);
+      }
+      const ring1 = new THREE.Mesh(new THREE.TorusGeometry(1.45, 0.02, 10, 48), mutedWire);
+      ring1.rotation.x = Math.PI / 2;
+      g2.add(ring1);
+      const ring2 = new THREE.Mesh(new THREE.TorusGeometry(0.75, 0.025, 10, 36), crimsonWire);
+      ring2.position.y = 0.9;
+      ring2.rotation.x = Math.PI / 2;
+      g2.add(ring2);
+      g2.visible = false;
+      cadScene.add(g2);
+      cadGroups.push(g2);
+
+      // --- SCENE 03: STM32 PCB + Toroid Inductor + MOSFETs + PWM/ZCS Pulses ---
+      const g3 = new THREE.Group();
+      const pcb = new THREE.Mesh(new THREE.BoxGeometry(3.3, 0.12, 2.2), darkWire);
+      g3.add(pcb);
+
+      const mcu = new THREE.Mesh(new THREE.BoxGeometry(0.92, 0.18, 0.92), crimsonWire);
+      mcu.position.set(-0.68, 0.15, 0);
+      g3.add(mcu);
+
+      const toroid = new THREE.Mesh(new THREE.TorusGeometry(0.36, 0.13, 12, 24), crimsonWire);
+      toroid.position.set(0.76, 0.28, -0.35);
+      toroid.rotation.x = Math.PI / 2;
+      g3.add(toroid);
+
+      // Dual MOSFET blocks
+      [-0.25, 0.25].forEach(zPos => {
+        const fet = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.16, 0.28), darkWire);
+        fet.position.set(0.18, 0.14, zPos + 0.35);
+        g3.add(fet);
+      });
+
+      // Animated Crimson PWM/ZCS Current Pulse Particles along trace
+      for (let p = 0; p < 6; p++) {
+        const dot = new THREE.Mesh(new THREE.SphereGeometry(0.065, 10, 10), crimsonSolid);
+        dot.position.set(-0.2 + p * 0.25, 0.12, 0.72);
+        g3.add(dot);
+        cadPulseParticles.push({ mesh: dot, phase: p / 6 });
+      }
+      g3.visible = false;
+      cadScene.add(g3);
+      cadGroups.push(g3);
+
+      // --- SCENE 04: Pulsing Multi-Agent Node Graph + Tool-Calling Packets ---
+      const g4 = new THREE.Group();
+      const nodeCoords = [
+        new THREE.Vector3(0, 0, 0),
+        new THREE.Vector3(-1.35, 0.85, 0.3),
+        new THREE.Vector3(1.35, 0.75, -0.25),
+        new THREE.Vector3(-1.15, -0.8, -0.4),
+        new THREE.Vector3(1.2, -0.75, 0.4),
+        new THREE.Vector3(0, 1.35, -0.3)
+      ];
+      nodeCoords.forEach((pos, idx) => {
+        const node = new THREE.Mesh(
+          new THREE.IcosahedronGeometry(idx === 0 ? 0.34 : 0.19, 1),
+          idx === 0 ? crimsonWire : darkWire
+        );
+        node.position.copy(pos);
+        g4.add(node);
+
+        if (idx > 0) {
+          const lineGeo = new THREE.BufferGeometry().setFromPoints([nodeCoords[0], pos]);
+          g4.add(new THREE.Line(lineGeo, new THREE.LineBasicMaterial({ color: 0xa1a1aa })));
+
+          const pkt = new THREE.Mesh(new THREE.SphereGeometry(0.055, 8, 8), crimsonSolid);
+          g4.add(pkt);
+          cadAgentPackets.push({ mesh: pkt, target: pos, phase: idx * 0.22 });
+        }
+      });
+      g4.visible = false;
+      cadScene.add(g4);
+      cadGroups.push(g4);
+
+      // Mouse & Touch Orbit Controls
+      const cont = document.getElementById('cad-viewport-container');
+      const startDrag = (x, y) => { cadOrbit.dragging = true; cadOrbit.prevX = x; cadOrbit.prevY = y; };
+      const moveDrag = (x, y) => {
+        if (!cadOrbit.dragging) return;
+        cadOrbit.targetY += (x - cadOrbit.prevX) * 0.01;
+        cadOrbit.targetX += (y - cadOrbit.prevY) * 0.01;
+        cadOrbit.prevX = x;
+        cadOrbit.prevY = y;
+      };
+      const endDrag = () => { cadOrbit.dragging = false; };
+
+      cont.addEventListener('mousedown', (e) => startDrag(e.clientX, e.clientY));
+      window.addEventListener('mousemove', (e) => moveDrag(e.clientX, e.clientY));
+      window.addEventListener('mouseup', endDrag);
+
+      cont.addEventListener('touchstart', (e) => { if (e.touches[0]) startDrag(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
+      cont.addEventListener('touchmove', (e) => { if (e.touches[0]) moveDrag(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
+      cont.addEventListener('touchend', endDrag);
+
+      // Camera Snap Buttons (ISO / TOP / SIDE / RESET)
+      document.querySelectorAll('.cam-snap-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const view = btn.getAttribute('data-cam');
+          if (view === 'iso' || view === 'reset') { cadOrbit.targetX = 0.35; cadOrbit.targetY = 0.55; }
+          if (view === 'top') { cadOrbit.targetX = Math.PI / 2 - 0.05; cadOrbit.targetY = 0; }
+          if (view === 'side') { cadOrbit.targetX = 0; cadOrbit.targetY = Math.PI / 2; }
+          document.querySelectorAll('.cam-snap-btn').forEach(b => {
+            const active = b === btn && view !== 'reset';
+            b.className = active
+              ? 'cam-snap-btn px-2 py-1 rounded-[3px] bg-obsidian text-white font-bold'
+              : 'cam-snap-btn px-2 py-1 rounded-[3px] text-slateMuted hover:text-obsidian';
+          });
+          if (view === 'reset') {
+            document.querySelector('.cam-snap-btn[data-cam="iso"]').className = 'cam-snap-btn px-2 py-1 rounded-[3px] bg-obsidian text-white font-bold';
+          }
+        });
+      });
+
+      // Project Selector Tabs
+      document.querySelectorAll('.scene-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => setActiveScene(Number(btn.getAttribute('data-select-scene'))));
+      });
+
+      // IntersectionObserver for Apple-Style Scroll Sync
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = Number(entry.target.getAttribute('data-project-id'));
+            setActiveScene(id);
+          }
+        });
+      }, { rootMargin: '-32% 0px -45% 0px', threshold: 0.1 });
+
+      document.querySelectorAll('.project-card').forEach(card => observer.observe(card));
+    }
+
+    window.setActiveScene = function(idx) {
+      activeSceneIdx = idx;
+      const p = PROJECTS[idx];
+      document.getElementById('cad-scene-title').textContent = p.cadTitle;
+      document.getElementById('cad-telemetry-sub').textContent = p.cadSub;
+
+      document.querySelectorAll('.scene-tab-btn').forEach((btn, i) => {
+        btn.className = i === idx
+          ? 'scene-tab-btn py-1.5 rounded-[4px] bg-obsidian text-white font-bold border border-obsidian transition-colors'
+          : 'scene-tab-btn py-1.5 rounded-[4px] bg-white text-slateMuted border border-hairline hover:border-obsidian hover:text-obsidian transition-colors';
+      });
+
+      document.querySelectorAll('.project-card').forEach((card, i) => {
+        card.classList.toggle('project-card-active', i === idx);
+      });
+    };
+
+    // =========================================================================
+    // 6. INTERACTIVE SIGNAL & FIRMWARE LAB (EEG NOTCH/BANDPASS + STM32 BUCK)
+    // =========================================================================
+    const labState = {
+      activeTab: 'eeg',
+      notchOn: false,
+      bandpassOn: false,
+      duty: 41.7
+    };
+
+    function initSignalLab() {
+      const btnEeg = document.getElementById('tab-btn-eeg');
+      const btnPwm = document.getElementById('tab-btn-pwm');
+      const panelEeg = document.getElementById('lab-panel-eeg');
+      const panelPwm = document.getElementById('lab-panel-pwm');
+
+      btnEeg.addEventListener('click', () => {
+        labState.activeTab = 'eeg';
+        panelEeg.classList.remove('hidden');
+        panelPwm.classList.add('hidden');
+        btnEeg.className = 'px-3.5 py-1.5 rounded-[3px] bg-obsidian text-white font-bold transition-colors';
+        btnPwm.className = 'px-3.5 py-1.5 rounded-[3px] text-slateMuted hover:text-obsidian transition-colors';
+        requestAnimationFrame(resizeAllCanvases);
+      });
+
+      btnPwm.addEventListener('click', () => {
+        labState.activeTab = 'pwm';
+        panelPwm.classList.remove('hidden');
+        panelEeg.classList.add('hidden');
+        btnPwm.className = 'px-3.5 py-1.5 rounded-[3px] bg-obsidian text-white font-bold transition-colors';
+        btnEeg.className = 'px-3.5 py-1.5 rounded-[3px] text-slateMuted hover:text-obsidian transition-colors';
+        requestAnimationFrame(resizeAllCanvases);
+      });
+
+      const updateEegStatus = () => {
+        const dot = document.getElementById('eeg-scope-dot');
+        const lbl = document.getElementById('eeg-scope-label');
+        if (labState.notchOn && labState.bandpassOn) {
+          dot.className = 'w-2 h-2 rounded-full bg-emerald-400';
+          lbl.textContent = 'CLEAN 7–31 HZ EEG (NOTCH + BUTTERWORTH ACTIVE)';
+        } else if (labState.notchOn) {
+          dot.className = 'w-2 h-2 rounded-full bg-sky-400';
+          lbl.textContent = '50 HZ NOTCH ACTIVE (BASELINE DRIFT PRESENT)';
+        } else if (labState.bandpassOn) {
+          dot.className = 'w-2 h-2 rounded-full bg-sky-400';
+          lbl.textContent = '7–31 HZ BANDPASS ACTIVE (50 HZ HUM PRESENT)';
+        } else {
+          dot.className = 'w-2 h-2 rounded-full bg-amber-400';
+          lbl.textContent = 'RAW EEG + 50 HZ HUM + BASELINE DRIFT';
+        }
+      };
+
+      document.getElementById('toggle-notch').addEventListener('click', (e) => {
+        labState.notchOn = !labState.notchOn;
+        e.currentTarget.classList.toggle('active', labState.notchOn);
+        updateEegStatus();
+      });
+
+      document.getElementById('toggle-bandpass').addEventListener('click', (e) => {
+        labState.bandpassOn = !labState.bandpassOn;
+        e.currentTarget.classList.toggle('active', labState.bandpassOn);
+        updateEegStatus();
+      });
+
+      const updatePwmReadouts = () => {
+        const d = labState.duty / 100;
+        const vin = 12.0;
+        const vout = vin * d;
+        // Estimated ripple for L = 100uH, f_sw = 50kHz: dI = (Vin - Vout) * D / (L * f)
+        const ripple = ((vin - vout) * d) / (100e-6 * 50000);
+        // LM358 current-sense feedback scaled ~0.2V per Vout ratio
+        const lm358 = (vout * 0.2).toFixed(2);
+
+        document.getElementById('pwm-duty-readout').textContent = `${labState.duty.toFixed(1)}%`;
+        document.getElementById('pwm-vout-val').textContent = `${vout.toFixed(2)} V`;
+        document.getElementById('pwm-ripple-val').textContent = `${ripple.toFixed(2)} A`;
+        document.getElementById('pwm-lm358-val').textContent = `${lm358} V`;
+      };
+
+      const slider = document.getElementById('pwm-duty-slider');
+      slider.addEventListener('input', (e) => {
+        labState.duty = parseFloat(e.target.value);
+        updatePwmReadouts();
+      });
+      document.getElementById('pwm-preset-5v').addEventListener('click', () => {
+        labState.duty = 41.7;
+        slider.value = '41.7';
+        updatePwmReadouts();
+      });
+      updatePwmReadouts();
+    }
+
+    function renderLabScopes(t) {
+      if (labState.activeTab === 'eeg') {
+        const c = document.getElementById('eeg-scope-canvas');
+        if (!c || c.width === 0) return;
+        const ctx = c.getContext('2d');
+        const w = c.width, h = c.height;
+        ctx.clearRect(0, 0, w, h);
+
+        // Oscilloscope grid
+        ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+        ctx.lineWidth = 1;
+        for (let x = 0; x < w; x += 48) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke(); }
+        for (let y = 0; y < h; y += 40) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
+
+        const isClean = labState.notchOn && labState.bandpassOn;
+        ctx.strokeStyle = isClean ? '#34D399' : (labState.notchOn || labState.bandpassOn ? '#38BDF8' : '#F59E0B');
+        ctx.lineWidth = 2.4;
+        ctx.beginPath();
+        for (let x = 0; x < w; x += 2) {
+          const alphaBeta = Math.sin(x * 0.028 + t * 4.5) * 26 + Math.sin(x * 0.072 - t * 6.5) * 14;
+          const hum50Hz = labState.notchOn ? 0 : Math.sin(x * 0.45 + t * 34) * 20;
+          const drift = labState.bandpassOn ? 0 : Math.sin(x * 0.006 + t * 1.1) * 34;
+          const y = h * 0.52 + alphaBeta + hum50Hz + drift;
+          if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+      } else {
+        const c = document.getElementById('pwm-scope-canvas');
+        if (!c || c.width === 0) return;
+        const ctx = c.getContext('2d');
+        const w = c.width, h = c.height;
+        ctx.clearRect(0, 0, w, h);
+
+        ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+        ctx.lineWidth = 1;
+        for (let x = 0; x < w; x += 48) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke(); }
+        for (let y = 0; y < h; y += 40) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
+
+        const d = labState.duty / 100;
+        const periodPx = 128;
+        const shift = (t * 96) % periodPx;
+
+        // 1. High-Side PWM (Signal Crimson)
+        ctx.strokeStyle = '#FB7185';
+        ctx.lineWidth = 2.4;
+        ctx.beginPath();
+        for (let x = 0; x < w; x += 2) {
+          const ph = ((x + shift) % periodPx) / periodPx;
+          const y = ph < d ? h * 0.18 : h * 0.38;
+          if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+
+        // 2. Complementary Low-Side PWM (Muted Slate)
+        ctx.strokeStyle = '#A1A1AA';
+        ctx.lineWidth = 1.8;
+        ctx.beginPath();
+        for (let x = 0; x < w; x += 2) {
+          const ph = ((x + shift) % periodPx) / periodPx;
+          const y = ph >= d + 0.03 ? h * 0.46 : h * 0.62;
+          if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+
+        // 3. Inductor Current Ripple Triangle Wave (Cyan)
+        ctx.strokeStyle = '#22D3EE';
+        ctx.lineWidth = 2.4;
+        ctx.beginPath();
+        for (let x = 0; x < w; x += 2) {
+          const ph = ((x + shift) % periodPx) / periodPx;
+          const tri = ph < d ? (ph / d) : (1 - (ph - d) / (1 - d));
+          const y = h * 0.88 - tri * (h * 0.18);
+          if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+      }
+    }
+
+    // =========================================================================
+    // 7. KEYBOARD-NAVIGABLE COMMAND PALETTE (⌘K / Ctrl+K)
+    // =========================================================================
+    const COMMANDS = [
+      { label: 'Jump to 01 · About', tag: 'SECTION', run: () => scrollToEl('#about') },
+      { label: 'Jump to 02 · Engineering Projects', tag: 'SECTION', run: () => scrollToEl('#projects') },
+      { label: 'Jump to 03 · Signal & Firmware Lab', tag: 'LAB', run: () => scrollToEl('#lab') },
+      { label: 'Jump to 04 · Skills & Focus', tag: 'SECTION', run: () => scrollToEl('#skills') },
+      { label: 'Jump to 05 · Education & Highlights', tag: 'SECTION', run: () => scrollToEl('#education') },
+      { label: 'Jump to 06 · Contact', tag: 'SECTION', run: () => scrollToEl('#contact') },
+      { label: 'Project 01 — EEG-Based Neuro-State Classification', tag: 'P.01', run: () => jumpProject(0) },
+      { label: 'Project 02 — Customer Retention Analytics Dashboard', tag: 'P.02', run: () => jumpProject(1) },
+      { label: 'Project 03 — STM32 Embedded Power Electronics System', tag: 'P.03', run: () => jumpProject(2) },
+      { label: 'Project 04 — Generative AI & Agentic AI Lab', tag: 'P.04', run: () => jumpProject(3) },
+      { label: 'Portrait Mode: X-RAY (Marea Liquid Reveal)', tag: 'OPTICAL', run: () => { setOpticalMode('xray'); scrollToEl('#top'); } },
+      { label: 'Portrait Mode: BLUEPRINT (Golden Ratio Grid)', tag: 'OPTICAL', run: () => { setOpticalMode('blueprint'); scrollToEl('#top'); } },
+      { label: 'Portrait Mode: STUDIO (Clean Monochrome)', tag: 'OPTICAL', run: () => { setOpticalMode('studio'); scrollToEl('#top'); } },
+      { label: 'Open Printable Resume PDF Modal', tag: 'RESUME', run: () => openResumeModal() },
+      { label: 'Copy Email (sathviknama31@gmail.com)', tag: 'COPY', run: () => copyToClipboard('sathviknama31@gmail.com', 'EMAIL') },
+      { label: 'Copy GitHub URL (github.com/SATHVIK-31)', tag: 'COPY', run: () => copyToClipboard('https://github.com/SATHVIK-31', 'GITHUB URL') }
+    ];
+
+    let filteredCommands = [...COMMANDS];
+    let cmdSelectedIdx = 0;
+
+    function scrollToEl(sel) {
+      const el = document.querySelector(sel);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function jumpProject(id) {
+      setActiveScene(id);
+      const card = document.querySelector(`.project-card[data-project-id="${id}"]`);
+      if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function renderCommandList() {
+      const list = document.getElementById('cmd-list');
+      if (filteredCommands.length === 0) {
+        list.innerHTML = `<div class="p-4 text-center font-mono text-xs text-slateMuted">No matching commands.</div>`;
+        return;
+      }
+      list.innerHTML = filteredCommands.map((cmd, i) => `
+        <button
+          data-cmd-i="${i}"
+          class="w-full text-left px-3 py-2.5 rounded-[4px] flex items-center justify-between text-xs sm:text-sm transition-colors ${i === cmdSelectedIdx ? 'bg-obsidian text-white' : 'text-obsidian hover:bg-zinc-100'}"
+        >
+          <span class="font-medium">${cmd.label}</span>
+          <span class="font-mono text-[10px] px-1.5 py-0.5 rounded-[3px] ${i === cmdSelectedIdx ? 'bg-crimson text-white' : 'bg-zinc-100 border border-hairline text-slateMuted'}">${cmd.tag}</span>
+        </button>
+      `).join('');
+
+      list.querySelectorAll('button').forEach((btn, i) => {
+        btn.addEventListener('click', () => {
+          closeCmdModal();
+          filteredCommands[i].run();
+        });
+      });
+    }
+
+    function openCmdModal() {
+      const m = document.getElementById('cmd-modal');
+      m.classList.remove('hidden');
+      m.classList.add('flex');
+      const inp = document.getElementById('cmd-input');
+      inp.value = '';
+      filteredCommands = [...COMMANDS];
+      cmdSelectedIdx = 0;
+      renderCommandList();
+      setTimeout(() => inp.focus(), 30);
+    }
+
+    function closeCmdModal() {
+      const m = document.getElementById('cmd-modal');
+      m.classList.add('hidden');
+      m.classList.remove('flex');
+    }
+
+    function openResumeModal() {
+      const m = document.getElementById('resume-modal');
+      m.classList.remove('hidden');
+      m.classList.add('flex');
+    }
+
+    function closeResumeModal() {
+      const m = document.getElementById('resume-modal');
+      m.classList.add('hidden');
+      m.classList.remove('flex');
+    }
+
+    // =========================================================================
+    // 8. RESPONSIVE RESIZING & MAIN 60FPS ANIMATION LOOP
+    // =========================================================================
+    function resizeAllCanvases() {
+      const pStage = document.getElementById('portrait-stage');
+      if (pStage && portraitCanvas) {
+        const r = pStage.getBoundingClientRect();
+        if (r.width > 0 && r.height > 0) {
+          portraitCanvas.width = Math.floor(r.width * 2);
+          portraitCanvas.height = Math.floor(r.height * 2);
+        }
+      }
+
+      ['eeg-scope-canvas', 'pwm-scope-canvas'].forEach(id => {
+        const c = document.getElementById(id);
+        if (c && c.parentElement) {
+          const r = c.parentElement.getBoundingClientRect();
+          if (r.width > 0 && r.height > 0) {
+            c.width = Math.floor(r.width * 2);
+            c.height = Math.floor(r.height * 2);
+          }
+        }
+      });
+
+      const cadCont = document.getElementById('cad-viewport-container');
+      if (cadRenderer && cadCont) {
+        const r = cadCont.getBoundingClientRect();
+        if (r.width > 0 && r.height > 0) {
+          cadCamera.aspect = r.width / r.height;
+          cadCamera.updateProjectionMatrix();
+          cadRenderer.setSize(r.width, r.height);
+        }
+      }
+    }
+
+    const clock = new THREE.Clock();
+
+    function animate() {
+      requestAnimationFrame(animate);
+      const t = clock.getElapsedTime();
+
+      renderPortraitOverlay(t);
+      renderLabScopes(t);
+
+      // Update 3D CAD Viewport
+      if (cadRenderer) {
+        cadGroups.forEach((g, i) => { g.visible = (i === activeSceneIdx); });
+
+        cadOrbit.rotX += (cadOrbit.targetX - cadOrbit.rotX) * 0.1;
+        cadOrbit.rotY += (cadOrbit.targetY - cadOrbit.rotY) * 0.1;
+
+        const g = cadGroups[activeSceneIdx];
+        if (g) {
+          g.rotation.x = cadOrbit.rotX;
+          g.rotation.y = cadOrbit.rotY + (cadOrbit.dragging ? 0 : t * 0.22);
+        }
+
+        // Per-scene procedural animations
+        if (activeSceneIdx === 0) {
+          cadEegLines.forEach(({ line, ch }) => {
+            const pos = line.geometry.attributes.position;
+            for (let i = 0; i < pos.count; i++) {
+              const x = pos.getX(i);
+              pos.setY(i, (ch - 2) * 0.38 + Math.sin(x * 3.1 + t * (2.5 + ch * 0.45) + ch) * 0.13);
+            }
+            pos.needsUpdate = true;
+          });
+        } else if (activeSceneIdx === 2) {
+          cadPulseParticles.forEach(p => {
+            const prog = (t * 0.65 + p.phase) % 1;
+            p.mesh.position.x = -0.75 + prog * 1.65;
+          });
+        } else if (activeSceneIdx === 3) {
+          cadAgentPackets.forEach(pkt => {
+            const prog = (Math.sin(t * 2.4 + pkt.phase * 6) + 1) * 0.5;
+            pkt.mesh.position.lerpVectors(new THREE.Vector3(0, 0, 0), pkt.target, prog);
+          });
+        }
+
+        const rotReadout = document.getElementById('cad-telemetry-rot');
+        if (rotReadout && g) {
+          rotReadout.textContent = `ROT [${g.rotation.x.toFixed(2)}, ${(g.rotation.y % 6.28).toFixed(2)}]`;
+        }
+
+        cadRenderer.render(cadScene, cadCamera);
+      }
+    }
+
+    // =========================================================================
+    // 9. BOOTSTRAP ON WINDOW LOAD
+    // =========================================================================
+    window.onload = function () {
+      try {
+        renderProjectsList();
+        renderSkillsMatrix();
+        initPortraitEngine();
+        initCadViewport();
+        initSignalLab();
+        resizeAllCanvases();
+        animate();
+
+        // Contact Copy Email Card
+        document.getElementById('copy-email-card').addEventListener('click', () => {
+          copyToClipboard('sathviknama31@gmail.com', 'EMAIL');
+        });
+
+        // Resume Modal Controls
+        document.querySelectorAll('[data-open-resume]').forEach(btn => {
+          btn.addEventListener('click', openResumeModal);
+        });
+        document.getElementById('resume-close-x').addEventListener('click', closeResumeModal);
+        document.getElementById('resume-close-btn').addEventListener('click', closeResumeModal);
+        document.getElementById('resume-modal').addEventListener('click', (e) => {
+          if (e.target.id === 'resume-modal') closeResumeModal();
+        });
+
+        // Command Palette Controls & Keyboard Navigation
+        document.getElementById('nav-cmd-btn').addEventListener('click', openCmdModal);
+        document.getElementById('cmd-close-btn').addEventListener('click', closeCmdModal);
+        document.getElementById('cmd-modal').addEventListener('click', (e) => {
+          if (e.target.id === 'cmd-modal') closeCmdModal();
+        });
+
+        const cmdInput = document.getElementById('cmd-input');
+        cmdInput.addEventListener('input', (e) => {
+          const q = e.target.value.trim().toLowerCase();
+          filteredCommands = COMMANDS.filter(c =>
+            c.label.toLowerCase().includes(q) || c.tag.toLowerCase().includes(q)
+          );
+          cmdSelectedIdx = 0;
+          renderCommandList();
+        });
+
+        window.addEventListener('keydown', (e) => {
+          const cmdOpen = !document.getElementById('cmd-modal').classList.contains('hidden');
+          if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+            e.preventDefault();
+            cmdOpen ? closeCmdModal() : openCmdModal();
+          } else if (e.key === 'Escape') {
+            closeCmdModal();
+            closeResumeModal();
+          } else if (cmdOpen && filteredCommands.length > 0) {
+            if (e.key === 'ArrowDown') {
+              e.preventDefault();
+              cmdSelectedIdx = (cmdSelectedIdx + 1) % filteredCommands.length;
+              renderCommandList();
+            } else if (e.key === 'ArrowUp') {
+              e.preventDefault();
+              cmdSelectedIdx = (cmdSelectedIdx - 1 + filteredCommands.length) % filteredCommands.length;
+              renderCommandList();
+            } else if (e.key === 'Enter') {
+              e.preventDefault();
+              const chosen = filteredCommands[cmdSelectedIdx];
+              closeCmdModal();
+              if (chosen) chosen.run();
+            }
+          }
+        });
+
+        window.addEventListener('resize', resizeAllCanvases);
+      } catch (err) {
+        console.error('Portfolio initialization error:', err);
+      }
+    };
+  </script>
+</body>
+</html>
